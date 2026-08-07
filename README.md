@@ -33,17 +33,18 @@
 
 这份 Skill 主要覆盖以下规则：
 
+- 改写时保留事实、限制、条件和确定程度
 - 中文引号统一使用直角引号 `「」`
-- 不使用 `你`、`您`、`同学` 这类直接称呼
+- 默认避免不必要的直接称呼，允许项目语气覆盖
 - 在可见正文中处理中文与英文、数字之间的留白
 - 避免机械直译 `Success`、`Invalid`、`Bad Request` 等英文状态词
 - 避免高频互联网黑话，如 `赋能`、`抓手`、`闭环`、`打通`
-- 按钮文案应体现下一步动作，避免与标题重复
-- 移动端优先保证可读性，而不是继续沿用桌面排版
+- 对操作、排查和运维文档应用受控中文技术写作方法
 
 完整规范请阅读：
 
-- [NoCode-Skill.md](./NoCode-Skill.md)
+- [SKILL.md](./SKILL.md)
+- [公开说明稿](./NoCode-Skill.md)
 
 ## 仓库结构
 
@@ -54,8 +55,15 @@ tech-doc-style-chinese/
 ├── README.md
 ├── agents/
 │   └── openai.yaml
-└── references/
-    └── Project-Overrides.md
+├── references/
+│   ├── api-status-copy.md
+│   ├── controlled-technical-chinese.md
+│   ├── project-overrides-example.md
+│   └── terminology-and-typography.md
+├── scripts/
+│   └── lint_copy_rules.py
+└── tests/
+    └── test_lint_copy_rules.py
 ```
 
 各文件的作用：
@@ -64,7 +72,9 @@ tech-doc-style-chinese/
 - `NoCode-Skill.md`：对外说明稿，适合公开阅读和分享
 - `README.md`：GitHub 仓库首页说明
 - `agents/openai.yaml`：技能展示元数据
-- `references/Project-Overrides.md`：项目私有约定示例
+- `references/`：按任务读取的详细规则和项目覆盖模板
+- `scripts/lint_copy_rules.py`：轻量检查器
+- `tests/test_lint_copy_rules.py`：检查器回归测试
 
 ## 如何在 Codex 中使用
 
@@ -144,7 +154,7 @@ Use $tech-doc-style-chinese to rewrite this Chinese technical copy.
 请安装这份 Skill：https://github.com/Fenng/tech-doc-style-chinese
 ```
 
-这种方式较省事，但具体装到项目级还是全局、是否附带 `references/Project-Overrides.md`，取决于 Claude Code 当时的能力与判断。团队协作或需要写进文档、CI 的场景，建议用下面的 npx 命令。
+这种方式较省事，但具体装到项目级还是全局取决于 Claude Code 当时的能力与判断。团队协作或需要写进文档、CI 的场景，建议用下面的 npx 命令。
 
 ### 使用 npx 安装（推荐）
 
@@ -196,9 +206,9 @@ Claude Code 会根据 `SKILL.md` 里的 `description` 自动判断何时调用�
 
 这份 Skill 只放通用规则，不把某个项目的版本展示、品牌语气、术语表或信息架构硬编码到核心规范里。
 
-如果项目存在自己的约定，建议通过单独的覆盖文件管理，例如：
+如果项目存在自己的约定，在目标项目中建立单独的覆盖文件。可以从以下模板开始：
 
-- `references/Project-Overrides.md`
+- `references/project-overrides-example.md`
 
 这类覆盖文件适合放：
 
@@ -207,18 +217,17 @@ Claude Code 会根据 `SKILL.md` 里的 `description` 自动判断何时调用�
 - 文档结构偏好
 - 当前项目特有示例
 
-这样可以保持核心 Skill 可复用，同时允许项目自行扩展。
+模板本身不包含默认生效的业务术语。不要把示例文件当成目标项目约定。
 
 ## 轻量校验与 CI
 
-仓库内置了一个零依赖校验脚本，用于检查高频规则：
+仓库内置了一个零依赖校验脚本，用于检查高频规则。结果分为：
 
-- 引号：禁止可见正文出现 `"`、`“`、`”`
-- 称呼：禁止可见正文出现 `你`、`您`、`同学`
-- 术语大小写：检查 `id/http/url/json/api/ai` 等写法并提示归一
-- 指定缩写：检查 `JS` / `Js` / `H5` 并提示改为 `JavaScript` / `HTML5`
-- AI 术语：检查 `llm/aigc/rag/chatgpt/openai api/embeding/finetune/fine tune` 等误写
-- 中文错词：检查 `阀值/登陆/布署/配制/起用/反回/回朔/标示/帐户/帐号/截止/搜寻/即时/做为`
+- `error`：高度确定的错误，默认导致非零退出
+- `warning`：依赖语境的可疑表达，需要人工判断
+- `style`：项目风格和术语偏好
+
+检查器会保护代码块、行内代码、URL、Markdown 链接目标和单段或多段 API 路径。`截止日期`、`登陆月球`、`配制溶液`、`H5` 等语境项不再作为确定错误。
 
 本地执行：
 
@@ -230,6 +239,24 @@ python scripts/lint_copy_rules.py
 
 ```bash
 python scripts/lint_copy_rules.py SKILL.md NoCode-Skill.md references/
+```
+
+将警告和风格提示也作为失败处理：
+
+```bash
+python scripts/lint_copy_rules.py --strict SKILL.md references/
+```
+
+忽略单行检查：
+
+```markdown
+需要保留的原文 <!-- copy-lint-disable-line -->
+```
+
+运行回归测试：
+
+```bash
+python -m unittest discover -s tests -v
 ```
 
 GitHub Actions 配置文件为 `.github/workflows/skill-lint.yml`，会在 `pull_request` 和 `main` 分支 `push` 时自动运行。

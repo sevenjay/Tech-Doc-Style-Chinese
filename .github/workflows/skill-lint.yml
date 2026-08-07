@@ -19,4 +19,6 @@ jobs:
           python-version: "3.12"
 
       - name: Run copy lint
-        run: python scripts/lint_copy_rules.py .
+        run: |
+          python -m unittest discover -s tests -v
+          python scripts/lint_copy_rules.py .
