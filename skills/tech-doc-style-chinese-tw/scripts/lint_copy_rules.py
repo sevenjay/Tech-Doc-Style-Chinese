@@ -31,10 +31,11 @@ API_PATH_RE = re.compile(
 )
 INLINE_LINK_RE = re.compile(r"(!?\[[^\]]*]\()([^)]+)(\))")
 
-FORBIDDEN_QUOTES = {
-    '"': "ASCII 雙引號",
-    "“": "中文彎引號",
-    "”": "中文彎引號",
+FORBIDDEN_QUOTES = {  # https://ippobooks.com/blog/2026-01-24-typesetting-apostrophe/
+    '‘︁': "中式彎引號",
+    '’': "中式彎引號",
+    "“": "中式雙彎引號",
+    "”": "中式雙彎引號",
 }
 
 NON_WORD_CHARS = r"\u4e00-\u9fffA-Za-z0-9_"
@@ -214,7 +215,7 @@ def scan_markdown(path: Path) -> list[Violation]:
                         col=match.start() + 1,
                         severity="style",
                         kind="quote",
-                        message=f"可見正文包含{label}，確認是否應改為直角引號「」",
+                        message=f"可見正文包含{label}，是否應改為直角單引號「」。 中英文混排： 英文的引號使用單引號為 '，雙引號為 \"，以免出現 ghost space。",
                         snippet=raw.strip(),
                     )
                 )
