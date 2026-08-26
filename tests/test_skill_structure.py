@@ -25,16 +25,16 @@ class SkillStructureTest(unittest.TestCase):
         reference = (
             ROOT / "references" / "controlled-technical-chinese.md"
         ).read_text(encoding="utf-8")
-        for heading in ("操作手册", "API 文档", "故障排查", "产品介绍"):
+        for heading in ("操作手冊", "API 文件", "疑難排解", "產品介紹"):
             with self.subTest(heading=heading):
                 self.assertIn(f"### {heading}", reference)
-        self.assertEqual(len(re.findall(r"^#### 样例 \d+$", reference, re.MULTILINE)), 12)
+        self.assertEqual(len(re.findall(r"^#### 範例 \d+$", reference, re.MULTILINE)), 12)
 
     def test_project_override_is_explicitly_a_template(self):
         reference = (
             ROOT / "references" / "project-overrides-example.md"
         ).read_text(encoding="utf-8")
-        self.assertIn("本文件只是模板", reference)
+        self.assertIn("本檔案只是範本", reference)
         self.assertFalse((ROOT / "references" / "Project-Overrides.md").exists())
 
 

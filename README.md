@@ -1,52 +1,52 @@
 # Chinese Tech Doc Style
 
-本项目只是一份面向中文技术文档、产品文案与界面文案的写作 Skill。
+本專案只是一份面向繁體中文技術文件、產品文案與介面文案的寫作 Skill。
 
-这份 Skill 的目标很明确：中文技术写作应更克制、更准确、更易读。不追求宣传感，也不试图把所有内容都写成统一模板，而是聚焦几类高频问题：
+這份 Skill 的目標很明確：中文技術寫作應更剋制、更準確、更易讀。不追求宣傳感，也不試圖把所有內容都寫成統一範本，而是著重處理幾類常見問題：
 
-- 中文技术文案容易空泛、重复、宣传化
-- 中文与英文、数字混合排版时可读性差
-- 常见英文状态词和错误词容易被机械直译
-- 文档首页、解决方案页、接口说明页、FAQ 的信息密度和结构经常失衡
+- 中文技術文案容易空泛、重複、宣傳化
+- 中文與英文、數字混合排版時可讀性差
+- 常見英文狀態詞和錯誤詞容易被機械直譯
+- 文件首頁、解決方案頁、API 說明頁、FAQ 的資訊密度和結構經常失衡
 
-如果需要一套适合中文技术文档的基础写作规范，这份 Skill 可以直接拿来使用，或是作为参考。
+如果需要一套適合中文技術文件的基礎寫作規範，這份 Skill 可以直接拿來使用，或是作為參考。
 
-## 适用场景
+## 適用情境
 
-本 Skill 适合以下内容：
+本 Skill 適合以下內容：
 
-- 文档首页、落地页、首屏文案
-- 接口文档、参数说明、错误码说明、更新日志
-- 产品能力介绍、解决方案页、能力说明页
-- 界面文案、按钮文案、导航标签、提示信息
+- 文件首頁、著陸頁、第一屏文案
+- API 文件、參數說明、錯誤碼說明、更新記錄
+- 產品功能介紹、解決方案頁、功能說明頁
+- 介面文案、按鈕文案、導覽標籤、提示資訊
 
-不适合以下内容：
+不適合以下內容：
 
-- 代码字面量
-- JSON 键名
+- 程式碼字面量
+- JSON 鍵名
 - URL
-- API 路径
-- 数据库字段名
-- 其他机器可读标识符
+- API 路徑
+- 資料庫欄位名稱
+- 其他機器可讀識別符號
 
-## 核心规则概览
+## 核心規則概覽
 
-这份 Skill 主要覆盖以下规则：
+這份 Skill 主要涵蓋以下規則：
 
-- 改写时保留事实、限制、条件和确定程度
-- 中文引号统一使用直角引号 `「」`
-- 默认避免不必要的直接称呼，允许项目语气覆盖
-- 在可见正文中处理中文与英文、数字之间的留白
-- 避免机械直译 `Success`、`Invalid`、`Bad Request` 等英文状态词
-- 避免高频互联网黑话，如 `赋能`、`抓手`、`闭环`、`打通`
-- 对操作、排查和运维文档应用受控中文技术写作方法
+- 改寫時保留事實、限制、條件和確定程度
+- 中文引號統一使用直角引號 `「」`
+- 預設避免不必要的直接稱呼；專案語氣規範可以覆寫此規則
+- 在可見正文中處理中文與英文、數字之間的留白
+- 避免機械直譯 `Success`、`Invalid`、`Bad Request` 等英文狀態詞
+- 避免常見網路黑話，如 `賦能`、`抓手`、`閉環`、`打通`
+- 對操作、疑難排解和維運文件套用受控中文技術寫作方法
 
-完整规范请阅读：
+完整規範請閱讀：
 
 - [SKILL.md](./SKILL.md)
-- [公开说明稿](./NoCode-Skill.md)
+- [公開說明稿](./NoCode-Skill.md)
 
-## 仓库结构
+## 儲存庫結構
 
 ```text
 tech-doc-style-chinese/
@@ -66,44 +66,44 @@ tech-doc-style-chinese/
     └── test_lint_copy_rules.py
 ```
 
-各文件的作用：
+各檔案的作用：
 
 - `SKILL.md`：正式技能入口，供 Codex、Claude Code 等 Agent 使用
-- `NoCode-Skill.md`：对外说明稿，适合公开阅读和分享
-- `README.md`：GitHub 仓库首页说明
-- `agents/openai.yaml`：技能展示元数据
-- `references/`：按任务读取的详细规则和项目覆盖模板
-- `scripts/lint_copy_rules.py`：轻量检查器
-- `tests/test_lint_copy_rules.py`：检查器回归测试
+- `NoCode-Skill.md`：對外說明稿，適合公開閱讀和分享
+- `README.md`：GitHub 儲存庫首頁說明
+- `agents/openai.yaml`：技能顯示中繼資料
+- `references/`：依任務讀取的詳細規則和專案覆寫範本
+- `scripts/lint_copy_rules.py`：輕量檢查器
+- `tests/test_lint_copy_rules.py`：檢查器迴歸測試
 
 ## 如何在 Codex 中使用
 
-### 使用 npx 安装（推荐）
+### 使用 npx 安裝（推薦）
 
-如果本机有 Node.js 环境，可直接用 `npx skills` 安装：
+如果本機有 Node.js 環境，可直接用 `npx skills` 安裝：
 
 ```bash
-# 直接安装
+# 直接安裝
 npx skills add https://github.com/Fenng/tech-doc-style-chinese
 ```
 
-如需无交互并明确安装到全局 Codex，可使用：
+如需無互動並以全域方式安裝到 Codex，可使用：
 
 ```bash
 npx -y skills add https://github.com/Fenng/tech-doc-style-chinese -a codex -g
 ```
 
-参数说明：
+參數說明：
 
-- `-a codex` 表示安装到 Codex agent
-- `-g` 表示全局安装（用户级），不加则安装到当前项目范围
-- `-y` 表示跳过交互确认，便于自动化执行
+- `-a codex` 表示安裝到 Codex agent
+- `-g` 表示全域安裝（使用者層級），不加則安裝到目前專案範圍
+- `-y` 表示跳過互動確認，便於自動化執行
 
-安装后建议重启 Codex，以确保新 Skill 被加载。
+安裝後建議重啟 Codex，以確保新 Skill 被載入。
 
-### 按 Release 安装（推荐）
+### 依 Release 安裝（推薦）
 
-固定版本安装，便于团队复现：
+固定版本安裝，方便團隊重現相同環境：
 
 ```bash
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
@@ -114,74 +114,74 @@ git clone --depth 1 --branch <release-tag> \
   "$CODEX_HOME/skills/tech-doc-style-chinese"
 ```
 
-`<release-tag>` 可替换为已发布版本，例如 `v0.1.0.2.4`。
+`<release-tag>` 可替換為已釋出版本，例如 `v0.1.0.2.4`。
 
-### 本地目录安装（开发场景）
+### 本地目錄安裝（開發情境）
 
-如果正在本地修改或调试，可直接复制目录：
+如果正在本地修改或除錯，可直接複製目錄：
 
 ```bash
 mkdir -p "$CODEX_HOME/skills/tech-doc-style-chinese"
 cp -R ./* "$CODEX_HOME/skills/tech-doc-style-chinese/"
 ```
 
-安装后可快速校验：
+安裝後可快速驗證：
 
 ```bash
 test -f "$CODEX_HOME/skills/tech-doc-style-chinese/SKILL.md" && echo "installed"
 ```
 
-安装完成后，可在任务中显式调用：
+安裝完成後，可在任務中明確呼叫：
 
 ```text
 Use $tech-doc-style-chinese to rewrite this Chinese technical copy.
 ```
 
-或者直接在相关任务中触发，例如：
+也可以直接在相關任務中觸發，例如：
 
-- 重写中文技术文案
+- 重寫中文技術文案
 - 整理 FAQ
-- 优化 API 文档措辞
-- 优化落地页中文文案
+- 最佳化 API 文件措辭
+- 最佳化著陸頁中文文案
 
 ## 如何在 Claude Code 中使用
 
-### 直接让 Claude Code 安装（最简单）
+### 直接讓 Claude Code 安裝（最簡單）
 
-如果当前 Claude Code 环境支持安装 Skills，可让它读取本仓库并安装：
+如果目前 Claude Code 環境支援安裝 Skills，可讓它讀取本儲存庫並安裝：
 
 ```text
-请安装这份 Skill：https://github.com/Fenng/tech-doc-style-chinese
+請安裝這份 Skill：https://github.com/Fenng/tech-doc-style-chinese
 ```
 
-这种方式较省事，但具体装到项目级还是全局取决于 Claude Code 当时的能力与判断。团队协作或需要写进文档、CI 的场景，建议用下面的 npx 命令。
+這種方式較省事，但要安裝在專案層級或全域範圍，取決於 Claude Code 當時的能力與判斷。團隊協作或需要寫入文件、CI 的情境，建議使用下列 npx 命令。
 
-### 使用 npx 安装（推荐）
+### 使用 npx 安裝（推薦）
 
-如果本机有 Node.js 环境，可直接用 `npx skills` 安装：
+如果本機有 Node.js 環境，可直接用 `npx skills` 安裝：
 
 ```bash
-# 安装到当前项目
+# 安裝到目前專案
 npx skills add https://github.com/Fenng/tech-doc-style-chinese -a claude-code
 ```
 
-如需无交互并明确安装到全局 Claude Code，可使用：
+如需無互動並以全域方式安裝到 Claude Code，可使用：
 
 ```bash
 npx -y skills add https://github.com/Fenng/tech-doc-style-chinese -a claude-code -g
 ```
 
-参数说明：
+參數說明：
 
-- `-a claude-code` 表示安装到 Claude Code
-- `-g` 表示全局安装（用户级，写入 `~/.claude/skills/`），不加则安装到当前项目范围（写入 `./.claude/skills/`）
-- `-y` 表示跳过交互确认，便于自动化执行
+- `-a claude-code` 表示安裝到 Claude Code
+- `-g` 表示全域安裝（使用者層級，寫入 `~/.claude/skills/`），不加則安裝到目前專案範圍（寫入 `./.claude/skills/`）
+- `-y` 表示跳過互動確認，便於自動化執行
 
-安装后建议重启 Claude Code，以确保新 Skill 被加载。
+安裝後建議重啟 Claude Code，以確保新 Skill 被載入。
 
-### 本地目录安装（开发场景）
+### 本地目錄安裝（開發情境）
 
-如果正在本地修改或调试，可直接复制目录：
+如果正在本地修改或除錯，可直接複製目錄：
 
 ```bash
 mkdir -p ~/.claude/skills/tech-doc-style-chinese
@@ -189,94 +189,95 @@ cp SKILL.md ~/.claude/skills/tech-doc-style-chinese/
 cp -R references ~/.claude/skills/tech-doc-style-chinese/
 ```
 
-安装后可快速校验：
+安裝後可快速驗證：
 
 ```bash
 test -f ~/.claude/skills/tech-doc-style-chinese/SKILL.md && echo "installed"
 ```
 
-Claude Code 会根据 `SKILL.md` 里的 `description` 自动判断何时调用该 Skill，无须手动触发，例如：
+Claude Code 會根據 `SKILL.md` 裡的 `description` 自動判斷何時呼叫該 Skill，無須手動觸發，例如：
 
-- 重写中文技术文案
+- 重寫中文技術文案
 - 整理 FAQ
-- 优化 API 文档措辞
-- 优化落地页中文文案
+- 最佳化 API 文件措辭
+- 最佳化著陸頁中文文案
 
-## 如何做项目级覆盖
+## 如何設定專案覆寫規則
 
-这份 Skill 只放通用规则，不把某个项目的版本展示、品牌语气、术语表或信息架构硬编码到核心规范里。
+這份 Skill 只收錄通用規則，不把特定專案的版本顯示方式、品牌語氣、術語表或資訊架構寫死在核心規範中。
 
-如果项目存在自己的约定，在目标项目中建立单独的覆盖文件。可以从以下模板开始：
+如果專案有自己的約定，請在目標專案中建立獨立的覆寫規則檔。可以從以下範本開始：
 
 - `references/project-overrides-example.md`
 
-这类覆盖文件适合放：
+這類覆寫規則檔適合放：
 
-- 版本展示约定
-- 品牌或术语偏好
-- 文档结构偏好
-- 当前项目特有示例
+- 版本顯示方式
+- 品牌或術語偏好
+- 文件結構偏好
+- 目前專案特有範例
 
-模板本身不包含默认生效的业务术语。不要把示例文件当成目标项目约定。
+範本本身不包含預設生效的業務術語。不要把範例檔案當成目標專案約定。
 
-## 轻量校验与 CI
+## 輕量檢查與 CI
 
-仓库内置了一个零依赖校验脚本，用于检查高频规则。结果分为：
+儲存庫內建一個不需額外相依套件的輕量檢查指令碼，用於檢查常見規則。結果分為：
 
-- `error`：高度确定的错误，默认导致非零退出
-- `warning`：依赖语境的可疑表达，需要人工判断
-- `style`：项目风格和术语偏好
+- `error`：高度確定的錯誤，預設以非零結束碼結束
+- `warning`：需視語境判斷的可疑表達，需要人工確認
+- `style`：專案風格和術語偏好
 
-检查器会保护代码块、行内代码、URL、Markdown 链接目标和单段或多段 API 路径。`截止日期`、`登陆月球`、`配制溶液`、`H5` 等语境项不再作为确定错误。
+檢查器會保護程式碼區塊、行內程式碼、URL、Markdown 連結目標，以及單段或多段 API 路徑。`截止日期`、`登陸月球`、`配製溶液`、`H5` 等需視語境判斷的詞，不再視為確定錯誤。
 
-本地执行：
+本地執行：
 
 ```bash
 python scripts/lint_copy_rules.py
 ```
 
-仅检查指定文件或目录：
+僅檢查指定檔案或目錄：
 
 ```bash
 python scripts/lint_copy_rules.py SKILL.md NoCode-Skill.md references/
 ```
 
-将警告和风格提示也作为失败处理：
+將警告和風格提示也作為失敗處理：
 
 ```bash
 python scripts/lint_copy_rules.py --strict SKILL.md references/
 ```
 
-忽略单行检查：
+忽略單行檢查：
 
 ```markdown
 需要保留的原文 <!-- copy-lint-disable-line -->
 ```
 
-运行回归测试：
+執行迴歸測試：
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-GitHub Actions 配置文件为 `.github/workflows/skill-lint.yml`，会在 `pull_request` 和 `main` 分支 `push` 时自动运行。
+GitHub Actions 設定檔為 `.github/workflows/skill-lint.yml`，會在 `pull_request` 和 `main` 分支 `push` 時自動執行。
 
-## 发布建议
+## 釋出建議
 
-如果只是公开分享规范内容：
+如果只是公開分享規範內容：
 
 - 保留 `NoCode-Skill.md`
-- 用 `README.md` 做仓库首页说明
+- 用 `README.md` 做儲存庫首頁說明
 
-如果希望别人能直接安装使用：
+如果希望他人能直接安裝使用：
 
 - 保留 `SKILL.md`
 - 保留 `agents/openai.yaml`
-- 在仓库里明确目录结构和安装方式
+- 在儲存庫裡明確目錄結構和安裝方式
 
 <!-- 作者：Fenng（GitHub：@Fenng） -->
 
 ## License
 
-本项目采用 MIT License。  
-详见 [LICENSE](./LICENSE)。
+本專案採用 MIT License。
+
+詳見 [LICENSE](./LICENSE)。

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""轻量中文技术文案检查器。
+"""輕量中文技術文案檢查器。
 
-检查结果分为三类：
-- error：高度确定的错误，默认导致非零退出。
-- warning：依赖语境的可疑表达，需人工判断。
-- style：团队风格或术语偏好，需结合项目规范判断。
+檢查結果分為三類：
+- error：高度確定的錯誤，預設導致非零退出。
+- warning：需視語境判斷的可疑表達，需人工確認。
+- style：團隊風格或術語偏好，需結合專案規範判斷。
 
-脚本忽略 Markdown front matter、代码块、行内代码、URL、链接目标和
-常见 API 路径。行尾加入 ``<!-- copy-lint-disable-line -->`` 可以忽略该行。
+指令碼忽略 Markdown front matter、程式碼區塊、行內程式碼、URL、連結目標和
+常見 API 路徑。行尾加入 ``<!-- copy-lint-disable-line -->`` 可以忽略該行。
 """
 
 from __future__ import annotations
@@ -32,14 +32,14 @@ API_PATH_RE = re.compile(
 INLINE_LINK_RE = re.compile(r"(!?\[[^\]]*]\()([^)]+)(\))")
 
 FORBIDDEN_QUOTES = {
-    '"': "ASCII 双引号",
-    "“": "中文弯引号",
-    "”": "中文弯引号",
+    '"': "ASCII 雙引號",
+    "“": "中文彎引號",
+    "”": "中文彎引號",
 }
 
 NON_WORD_CHARS = r"\u4e00-\u9fffA-Za-z0-9_"
-PREFIX_CONTEXT_CHARS = "与跟对向给帮替为请让"
-SUFFIX_HINTS = "可会要能应需请把将来去做看读写用"
+PREFIX_CONTEXT_CHARS = "與跟對向給幫替為請讓"
+SUFFIX_HINTS = "可會要能應需請把將來去做看讀寫用"
 
 FORBIDDEN_ADDRESS_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     (
@@ -50,7 +50,7 @@ FORBIDDEN_ADDRESS_PATTERNS: list[tuple[re.Pattern[str], str]] = [
     ),
     (re.compile(rf"(?<=[{PREFIX_CONTEXT_CHARS}])你"), "你"),
     (re.compile(r"您"), "您"),
-    (re.compile(r"同学(?:们|們)?"), "同学"),
+    (re.compile(r"同學(?:們)?"), "同學"),
 ]
 
 CASE_RULES = [
@@ -64,7 +64,7 @@ CASE_RULES = [
 
 ABBREVIATION_RULES = [
     (re.compile(r"(?<![A-Za-z0-9_])(?:JS|Js)(?![A-Za-z0-9_])"), "JavaScript"),
-    (re.compile(r"(?<![A-Za-z0-9_])H5(?![A-Za-z0-9_])"), "移动 Web 页面或 HTML5"),
+    (re.compile(r"(?<![A-Za-z0-9_])H5(?![A-Za-z0-9_])"), "行動 Web 頁面或 HTML5"),
 ]
 
 AI_TERM_RULES = [
@@ -87,32 +87,32 @@ AI_TERM_RULES = [
         re.compile(r"(?<![A-Za-z0-9_])fine\s+tune(?![A-Za-z0-9_])"),
         "fine-tuning",
     ),
-    (re.compile(r"提示工程学"), "提示工程"),
-    (re.compile(r"模型出现幻听"), "模型出现幻觉"),
+    (re.compile(r"提示工程學"), "提示工程"),
+    (re.compile(r"模型出現幻聽"), "模型出現幻覺"),
 ]
 
 ERROR_TYPO_RULES = [
-    (re.compile(r"阀值"), "阈值"),
-    (re.compile(r"布署"), "部署"),
+    (re.compile(r"閥值"), "閾值"),
+    (re.compile(r"佈署"), "部署"),
     (re.compile(r"反回"), "返回"),
     (re.compile(r"回朔"), "回溯"),
-    (re.compile(r"做为"), "作为"),
+    (re.compile(r"做為"), "作為"),
 ]
 
 CONTEXT_WARNING_RULES = [
-    (re.compile(r"登陆"), "确认语义：登录系统；登陆陆地或天体"),
-    (re.compile(r"配制"), "确认语义：配置参数；配制溶液"),
-    (re.compile(r"起用"), "确认语义：启用功能；起用人员"),
-    (re.compile(r"标示"), "确认语义：标识字段；标示位置"),
-    (re.compile(r"帐户"), "项目可统一为账户"),
-    (re.compile(r"帐号"), "项目可统一为账号"),
-    (re.compile(r"截止"), "确认语义：截至某时；截止日期"),
-    (re.compile(r"搜寻"), "技术文档通常使用搜索"),
+    (re.compile(r"登陸"), "確認語義：登入系統；登陸陸地或天體"),
+    (re.compile(r"配製"), "確認語義：設定參數；依比例配製溶液"),
+    (re.compile(r"起用"), "確認語義：啟用功能；起用人員"),
+    (re.compile(r"標示"), "確認語義：識別欄位；標示位置"),
+    (re.compile(r"賬戶"), "臺灣用語通常寫「帳戶」"),
+    (re.compile(r"賬號"), "臺灣用語通常寫「帳號」"),
+    (re.compile(r"截止"), "確認語義：截至某時；截止日期"),
+    (re.compile(r"搜索"), "臺灣技術文件通常使用「搜尋」"),
     (
         re.compile(
-            r"即时(?=(通信|消息|处理|监控|更新|同步|计算|响应|数据|日志|推送|渲染|指标|告警|检索|查询|任务|分析|流式|调用|服务|接口|系统))"
+            r"實時(?=(通訊|訊息|處理|監控|更新|同步|計算|回應|資料|記錄檔|推送|渲染|指標|警示|檢索|查詢|任務|分析|流式|呼叫|服務|介面|系統))"
         ),
-        "技术能力语境通常使用实时",
+        "臺灣技術文件通常使用「即時」",
     ),
 ]
 
@@ -220,7 +220,7 @@ def scan_markdown(path: Path) -> list[Violation]:
                         col=match.start() + 1,
                         severity="style",
                         kind="quote",
-                        message=f"可见正文包含{label}，确认是否应改为直角引号「」",
+                        message=f"可見正文包含{label}，確認是否應改為直角引號「」",
                         snippet=raw.strip(),
                     )
                 )
@@ -233,7 +233,7 @@ def scan_markdown(path: Path) -> list[Violation]:
                     col=match.start() + 1,
                     severity="style",
                     kind="address",
-                    message=f"可见正文包含称呼「{term}」，确认项目是否允许",
+                    message=f"可見正文包含稱呼「{term}」，確認專案是否允許",
                     snippet=raw.strip(),
                 )
             )
@@ -247,7 +247,7 @@ def scan_markdown(path: Path) -> list[Violation]:
             rules=CASE_RULES,
             severity="style",
             kind="casing",
-            label="术语写法",
+            label="術語寫法",
         )
         add_rule_matches(
             violations,
@@ -258,7 +258,7 @@ def scan_markdown(path: Path) -> list[Violation]:
             rules=ABBREVIATION_RULES,
             severity="style",
             kind="abbreviation",
-            label="缩写需结合语境确认",
+            label="縮寫需視語境確認",
         )
         add_rule_matches(
             violations,
@@ -269,7 +269,7 @@ def scan_markdown(path: Path) -> list[Violation]:
             rules=AI_TERM_RULES,
             severity="warning",
             kind="ai-term",
-            label="AI 术语",
+            label="AI 術語",
         )
         add_rule_matches(
             violations,
@@ -280,7 +280,7 @@ def scan_markdown(path: Path) -> list[Violation]:
             rules=ERROR_TYPO_RULES,
             severity="error",
             kind="typo",
-            label="高置信度错词",
+            label="高可信度錯詞",
         )
         add_rule_matches(
             violations,
@@ -291,23 +291,23 @@ def scan_markdown(path: Path) -> list[Violation]:
             rules=CONTEXT_WARNING_RULES,
             severity="warning",
             kind="context",
-            label="语境词",
+            label="語境詞",
         )
 
     return violations
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="校验中文技术文案高频规则")
+    parser = argparse.ArgumentParser(description="檢查中文技術文案常見規則")
     parser.add_argument(
         "files",
         nargs="*",
-        help="要检查的 Markdown 文件或目录；为空时检查当前目录",
+        help="要檢查的 Markdown 檔案或目錄；為空時檢查目前目錄",
     )
     parser.add_argument(
         "--strict",
         action="store_true",
-        help="将 warning 和 style 也作为失败处理",
+        help="將 warning 和 style 也作為失敗處理",
     )
     return parser.parse_args()
 
@@ -319,7 +319,7 @@ def collect_targets(args: argparse.Namespace) -> list[Path]:
     for item in raw_targets:
         path = Path(item)
         if not path.exists():
-            print(f"[WARN] 文件不存在，已跳过: {item}", file=sys.stderr)
+            print(f"[WARN] 檔案不存在，已跳過: {item}", file=sys.stderr)
             continue
         if path.is_dir():
             for markdown in sorted(path.rglob("*.md")):
@@ -338,12 +338,12 @@ def main() -> int:
     args = parse_args()
     targets = collect_targets(args)
     if not targets:
-        print("未找到可检查的 Markdown 文件。", file=sys.stderr)
+        print("未找到可檢查的 Markdown 檔案。", file=sys.stderr)
         return 1
 
     findings = [item for target in targets for item in scan_markdown(target)]
     if not findings:
-        print(f"PASS: 共检查 {len(targets)} 个文件，未发现问题。")
+        print(f"PASS: 共檢查 {len(targets)} 個檔案，未發現問題。")
         return 0
 
     counts = {
@@ -359,7 +359,7 @@ def main() -> int:
     should_fail = bool(counts["error"] or (args.strict and findings))
     status = "FAIL" if should_fail else "PASS WITH ADVICE"
     print(
-        f"{status}: 共检查 {len(targets)} 个文件；"
+        f"{status}: 共檢查 {len(targets)} 個檔案；"
         f"error={counts['error']} warning={counts['warning']} style={counts['style']}。"
     )
     return 2 if should_fail else 0
