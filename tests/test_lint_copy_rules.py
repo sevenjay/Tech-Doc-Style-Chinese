@@ -9,8 +9,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SKILL_DIR = ROOT / "skills" / "tech-doc-style-chinese-tw"
 LINTER = runpy.run_path(
-    str(ROOT / "scripts" / "lint_copy_rules.py"),
+    str(SKILL_DIR / "scripts" / "lint_copy_rules.py"),
     run_name="lint_copy_rules_test",
 )
 scan_markdown = LINTER["scan_markdown"]
@@ -76,7 +77,11 @@ class CopyLintRulesTest(unittest.TestCase):
             path = Path(directory) / "sample.md"
             path.write_text("截止日期。登陸月球。", encoding="utf-8")
             result = subprocess.run(
-                [sys.executable, str(ROOT / "scripts" / "lint_copy_rules.py"), str(path)],
+                [
+                    sys.executable,
+                    str(SKILL_DIR / "scripts" / "lint_copy_rules.py"),
+                    str(path),
+                ],
                 check=False,
                 capture_output=True,
                 text=True,
@@ -89,7 +94,11 @@ class CopyLintRulesTest(unittest.TestCase):
             path = Path(directory) / "sample.md"
             path.write_text("閥值。", encoding="utf-8")
             result = subprocess.run(
-                [sys.executable, str(ROOT / "scripts" / "lint_copy_rules.py"), str(path)],
+                [
+                    sys.executable,
+                    str(SKILL_DIR / "scripts" / "lint_copy_rules.py"),
+                    str(path),
+                ],
                 check=False,
                 capture_output=True,
                 text=True,

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Traditional Chinese Technical Writing"
+  short_description: "Refine Traditional Chinese technical writing without changing facts"
+  default_prompt: "Use $tech-doc-style-chinese-tw to rewrite this Chinese technical content clearly while preserving facts and machine-readable text."

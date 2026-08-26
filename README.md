@@ -43,37 +43,40 @@
 
 完整規範請閱讀：
 
-- [SKILL.md](./SKILL.md)
+- [SKILL.md](./skills/tech-doc-style-chinese-tw/SKILL.md)
 - [公開說明稿](./NoCode-Skill.md)
 
 ## 儲存庫結構
 
 ```text
 tech-doc-style-chinese/
-├── SKILL.md
 ├── NoCode-Skill.md
 ├── README.md
-├── agents/
-│   └── openai.yaml
-├── references/
-│   ├── api-status-copy.md
-│   ├── controlled-technical-chinese.md
-│   ├── project-overrides-example.md
-│   └── terminology-and-typography.md
-├── scripts/
-│   └── lint_copy_rules.py
+├── skills/
+│   └── tech-doc-style-chinese-tw/
+│       ├── SKILL.md
+│       ├── agents/
+│       │   └── openai.yaml
+│       ├── references/
+│       │   ├── api-status-copy.md
+│       │   ├── controlled-technical-chinese.md
+│       │   ├── project-overrides-example.md
+│       │   └── terminology-and-typography.md
+│       └── scripts/
+│           └── lint_copy_rules.py
 └── tests/
-    └── test_lint_copy_rules.py
+    ├── test_lint_copy_rules.py
+    └── test_skill_structure.py
 ```
 
 各檔案的作用：
 
-- `SKILL.md`：正式技能入口，供 Codex、Claude Code 等 Agent 使用
+- `skills/tech-doc-style-chinese-tw/SKILL.md`：正式技能入口，供 Codex、Claude Code 等 Agent 使用
 - `NoCode-Skill.md`：對外說明稿，適合公開閱讀和分享
 - `README.md`：GitHub 儲存庫首頁說明
-- `agents/openai.yaml`：技能顯示中繼資料
-- `references/`：依任務讀取的詳細規則和專案覆寫範本
-- `scripts/lint_copy_rules.py`：輕量檢查器
+- `skills/tech-doc-style-chinese-tw/agents/openai.yaml`：技能顯示中繼資料
+- `skills/tech-doc-style-chinese-tw/references/`：依任務讀取的詳細規則和專案覆寫範本
+- `skills/tech-doc-style-chinese-tw/scripts/lint_copy_rules.py`：輕量檢查器
 - `tests/test_lint_copy_rules.py`：檢查器迴歸測試
 
 ## 如何在 Codex 中使用
@@ -84,20 +87,22 @@ tech-doc-style-chinese/
 
 ```bash
 # 直接安裝
-npx skills add https://github.com/Fenng/tech-doc-style-chinese
+npx skills add https://github.com/Fenng/tech-doc-style-chinese \
+  --skill tech-doc-style-chinese-tw
 ```
 
 如需無互動並以全域方式安裝到 Codex，可使用：
 
 ```bash
-npx -y skills add https://github.com/Fenng/tech-doc-style-chinese -a codex -g
+npx --yes skills add https://github.com/Fenng/tech-doc-style-chinese \
+  --skill tech-doc-style-chinese-tw --agent codex --global --yes
 ```
 
 參數說明：
 
-- `-a codex` 表示安裝到 Codex agent
-- `-g` 表示全域安裝（使用者層級），不加則安裝到目前專案範圍
-- `-y` 表示跳過互動確認，便於自動化執行
+- `--agent codex` 表示安裝到 Codex agent
+- `--global` 表示全域安裝（使用者層級），不加則安裝到目前專案範圍
+- 第一個 `--yes` 跳過 `npx` 套件安裝確認，最後一個 `--yes` 跳過 Skills CLI 互動確認
 
 安裝後建議重啟 Codex，以確保新 Skill 被載入。
 
@@ -106,35 +111,41 @@ npx -y skills add https://github.com/Fenng/tech-doc-style-chinese -a codex -g
 固定版本安裝，方便團隊重現相同環境：
 
 ```bash
-CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
-mkdir -p "$CODEX_HOME/skills"
+CODEX_SKILLS_DIR="${CODEX_HOME:-$HOME/.codex}/skills"
+RELEASE_CHECKOUT="./tech-doc-style-chinese-release"
+RELEASE_TAG="<release-tag>"
+mkdir -p "$CODEX_SKILLS_DIR"
 
-git clone --depth 1 --branch <release-tag> \
+git clone --depth 1 --branch "$RELEASE_TAG" \
   https://github.com/Fenng/tech-doc-style-chinese.git \
-  "$CODEX_HOME/skills/tech-doc-style-chinese"
+  "$RELEASE_CHECKOUT"
+cp -R \
+  "$RELEASE_CHECKOUT/skills/tech-doc-style-chinese-tw" \
+  "$CODEX_SKILLS_DIR/"
 ```
 
-`<release-tag>` 可替換為已釋出版本，例如 `v0.1.0.2.4`。
+將 `RELEASE_TAG` 替換為包含此目錄結構的已釋出版本。
 
 ### 本地目錄安裝（開發情境）
 
 如果正在本地修改或除錯，可直接複製目錄：
 
 ```bash
-mkdir -p "$CODEX_HOME/skills/tech-doc-style-chinese"
-cp -R ./* "$CODEX_HOME/skills/tech-doc-style-chinese/"
+CODEX_SKILLS_DIR="${CODEX_HOME:-$HOME/.codex}/skills"
+mkdir -p "$CODEX_SKILLS_DIR"
+cp -R skills/tech-doc-style-chinese-tw "$CODEX_SKILLS_DIR/"
 ```
 
 安裝後可快速驗證：
 
 ```bash
-test -f "$CODEX_HOME/skills/tech-doc-style-chinese/SKILL.md" && echo "installed"
+test -f "$CODEX_SKILLS_DIR/tech-doc-style-chinese-tw/SKILL.md" && echo "installed"
 ```
 
 安裝完成後，可在任務中明確呼叫：
 
 ```text
-Use $tech-doc-style-chinese to rewrite this Chinese technical copy.
+Use $tech-doc-style-chinese-tw to rewrite this Taiwan Chinese technical copy.
 ```
 
 也可以直接在相關任務中觸發，例如：
@@ -162,20 +173,22 @@ Use $tech-doc-style-chinese to rewrite this Chinese technical copy.
 
 ```bash
 # 安裝到目前專案
-npx skills add https://github.com/Fenng/tech-doc-style-chinese -a claude-code
+npx skills add https://github.com/Fenng/tech-doc-style-chinese \
+  --skill tech-doc-style-chinese-tw -a claude-code
 ```
 
 如需無互動並以全域方式安裝到 Claude Code，可使用：
 
 ```bash
-npx -y skills add https://github.com/Fenng/tech-doc-style-chinese -a claude-code -g
+npx --yes skills add https://github.com/Fenng/tech-doc-style-chinese \
+  --skill tech-doc-style-chinese-tw --agent claude-code --global --yes
 ```
 
 參數說明：
 
-- `-a claude-code` 表示安裝到 Claude Code
-- `-g` 表示全域安裝（使用者層級，寫入 `~/.claude/skills/`），不加則安裝到目前專案範圍（寫入 `./.claude/skills/`）
-- `-y` 表示跳過互動確認，便於自動化執行
+- `--agent claude-code` 表示安裝到 Claude Code
+- `--global` 表示全域安裝（使用者層級，寫入 `~/.claude/skills/`），不加則安裝到目前專案範圍（寫入 `./.claude/skills/`）
+- 第一個 `--yes` 跳過 `npx` 套件安裝確認，最後一個 `--yes` 跳過 Skills CLI 互動確認
 
 安裝後建議重啟 Claude Code，以確保新 Skill 被載入。
 
@@ -184,15 +197,14 @@ npx -y skills add https://github.com/Fenng/tech-doc-style-chinese -a claude-code
 如果正在本地修改或除錯，可直接複製目錄：
 
 ```bash
-mkdir -p ~/.claude/skills/tech-doc-style-chinese
-cp SKILL.md ~/.claude/skills/tech-doc-style-chinese/
-cp -R references ~/.claude/skills/tech-doc-style-chinese/
+mkdir -p ~/.claude/skills
+cp -R skills/tech-doc-style-chinese-tw ~/.claude/skills/
 ```
 
 安裝後可快速驗證：
 
 ```bash
-test -f ~/.claude/skills/tech-doc-style-chinese/SKILL.md && echo "installed"
+test -f ~/.claude/skills/tech-doc-style-chinese-tw/SKILL.md && echo "installed"
 ```
 
 Claude Code 會根據 `SKILL.md` 裡的 `description` 自動判斷何時呼叫該 Skill，無須手動觸發，例如：
@@ -208,7 +220,7 @@ Claude Code 會根據 `SKILL.md` 裡的 `description` 自動判斷何時呼叫�
 
 如果專案有自己的約定，請在目標專案中建立獨立的覆寫規則檔。可以從以下範本開始：
 
-- `references/project-overrides-example.md`
+- `skills/tech-doc-style-chinese-tw/references/project-overrides-example.md`
 
 這類覆寫規則檔適合放：
 
@@ -232,19 +244,21 @@ Claude Code 會根據 `SKILL.md` 裡的 `description` 自動判斷何時呼叫�
 本地執行：
 
 ```bash
-python scripts/lint_copy_rules.py
+python3 skills/tech-doc-style-chinese-tw/scripts/lint_copy_rules.py
 ```
 
 僅檢查指定檔案或目錄：
 
 ```bash
-python scripts/lint_copy_rules.py SKILL.md NoCode-Skill.md references/
+python3 skills/tech-doc-style-chinese-tw/scripts/lint_copy_rules.py \
+  NoCode-Skill.md skills/tech-doc-style-chinese-tw/
 ```
 
 將警告和風格提示也作為失敗處理：
 
 ```bash
-python scripts/lint_copy_rules.py --strict SKILL.md references/
+python3 skills/tech-doc-style-chinese-tw/scripts/lint_copy_rules.py \
+  --strict skills/tech-doc-style-chinese-tw/
 ```
 
 忽略單行檢查：
@@ -256,7 +270,7 @@ python scripts/lint_copy_rules.py --strict SKILL.md references/
 執行迴歸測試：
 
 ```bash
-python -m unittest discover -s tests -v
+python3 -m unittest discover -s tests -v
 ```
 
 GitHub Actions 設定檔為 `.github/workflows/skill-lint.yml`，會在 `pull_request` 和 `main` 分支 `push` 時自動執行。
@@ -270,9 +284,9 @@ GitHub Actions 設定檔為 `.github/workflows/skill-lint.yml`，會在 `pull_re
 
 如果希望他人能直接安裝使用：
 
-- 保留 `SKILL.md`
-- 保留 `agents/openai.yaml`
-- 在儲存庫裡明確目錄結構和安裝方式
+- 保留 `skills/tech-doc-style-chinese-tw/SKILL.md`
+- 保留 `skills/tech-doc-style-chinese-tw/agents/openai.yaml`
+- 在儲存庫裡明確說明目錄結構和安裝方式
 
 <!-- 作者：Fenng（GitHub：@Fenng） -->
 

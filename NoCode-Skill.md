@@ -1,6 +1,6 @@
 # 中文技術文件與產品文案規範
 
-這是一份面向中文技術文件、產品文案和介面文案的寫作 Skill。正式、可安裝的規則入口是 [SKILL.md](SKILL.md)；本頁只說明設計目標和內容結構，不複製完整規則。
+這是一份面向繁體中文技術文件、產品文案和介面文案的寫作 Skill。正式、可安裝的規則入口是 [SKILL.md](skills/tech-doc-style-chinese-tw/SKILL.md)；本頁只說明設計目標和內容結構，不複製完整規則。
 
 ## 目標
 
@@ -35,7 +35,7 @@
 
 ## 內容結構
 
-核心入口 [SKILL.md](SKILL.md) 負責：
+核心入口 [SKILL.md](skills/tech-doc-style-chinese-tw/SKILL.md) 負責：
 
 - 規則優先順序
 - 事實保真
@@ -46,10 +46,10 @@
 
 詳細規則視需要讀取：
 
-- [術語與排版](references/terminology-and-typography.md)
-- [API 狀態與錯誤文案](references/api-status-copy.md)
-- [受控中文技術寫作](references/controlled-technical-chinese.md)
-- [專案覆寫範本](references/project-overrides-example.md)
+- [術語與排版](skills/tech-doc-style-chinese-tw/references/terminology-and-typography.md)
+- [API 狀態與錯誤文案](skills/tech-doc-style-chinese-tw/references/api-status-copy.md)
+- [受控中文技術寫作](skills/tech-doc-style-chinese-tw/references/controlled-technical-chinese.md)
+- [專案覆寫範本](skills/tech-doc-style-chinese-tw/references/project-overrides-example.md)
 
 ## 受控中文技術寫作
 
@@ -67,7 +67,7 @@
 
 通用 Skill 不包含任何專案預設生效的業務術語。目標專案如有版本、品牌、術語或資訊架構約定，應在目標專案中建立覆寫規則檔。
 
-[專案覆寫範本](references/project-overrides-example.md) 只提供結構，不包含預設業務規則。
+[專案覆寫範本](skills/tech-doc-style-chinese-tw/references/project-overrides-example.md) 只提供結構，不包含預設業務規則。
 
 ## 自動檢查
 
