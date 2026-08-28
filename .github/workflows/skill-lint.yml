@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        env:
+          GIT_SSL_NO_VERIFY: "true"
 
       - name: Setup Python
         uses: actions/setup-python@v7
