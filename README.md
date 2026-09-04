@@ -58,7 +58,7 @@ tech-doc-style-chinese/
 │       ├── agents/
 │       │   └── openai.yaml
 │       ├── references/
-│       │   ├── api-status-copy.md
+│       │   ├── api-status.md
 │       │   ├── controlled-technical-chinese.md
 │       │   ├── project-overrides-example.md
 │       │   └── terminology-and-typography.md

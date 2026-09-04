@@ -47,7 +47,7 @@
 詳細規則視需要讀取：
 
 - [術語與排版](skills/tech-doc-style-chinese-tw/references/terminology-and-typography.md)
-- [API 狀態與錯誤文案](skills/tech-doc-style-chinese-tw/references/api-status-copy.md)
+- [API 狀態與錯誤文案](skills/tech-doc-style-chinese-tw/references/api-status.md)
 - [受控中文技術寫作](skills/tech-doc-style-chinese-tw/references/controlled-technical-chinese.md)
 - [專案覆寫範本](skills/tech-doc-style-chinese-tw/references/project-overrides-example.md)
 

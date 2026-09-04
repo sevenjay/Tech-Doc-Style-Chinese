@@ -36,12 +36,6 @@ description: 在撰寫、改寫、校對或審閱繁體中文技術文件、產�
 - 資訊不足時保留原意，或明確標記「待確認」；不要自行補全。
 - 改寫引用、法規、合約、錯誤原文或使用者提供的固定文案時，優先保持原文並將建議單獨列出。
 
-範例：
-
-- `截止 4 月 12 日` -> `截至 4 月 12 日`
-- `儘快處理` -> `在約定時限內處理〔具體時限待確認〕`
-- 不要憑空補成 `截至 2026 年 4 月 12 日` 或 `30 分鐘內處理`
-
 ## 先判斷任務模式
 
 ### 撰寫
@@ -93,7 +87,7 @@ description: 在撰寫、改寫、校對或審閱繁體中文技術文件、產�
 - 術語、產品名稱和縮寫優先採用專案規範或官方寫法，不機械替換。
 - 不直接批次執行排版替換工具；先保護 Markdown、程式碼和機器可讀內容。
 
-詳細規則見 [術語與排版](references/terminology-and-typography.md)。
+詳細規則見 references/terminology-and-typography.md 
 
 ## 依內容類型處理
 
@@ -114,7 +108,7 @@ description: 在撰寫、改寫、校對或審閱繁體中文技術文件、產�
 - 狀態和錯誤文案根據實際語義翻譯，不機械對應單個英文詞。
 - 寫明前置條件、成功結果、失敗結果和復原方式。
 
-詳細規則見 [API 狀態與錯誤文案](references/api-status-copy.md)。
+詳細規則見 [API 狀態與錯誤文案](references/api-status.md)。
 
 ### 介面文案
 
@@ -157,6 +151,6 @@ description: 在撰寫、改寫、校對或審閱繁體中文技術文件、產�
 ## 參考資料路由
 
 - 術語、黑話、錯詞、大小寫、標點和中英文留白： [術語與排版](references/terminology-and-typography.md)
-- API 狀態、錯誤碼和常見英文狀態詞： [API 狀態與錯誤文案](references/api-status-copy.md)
+- API 狀態、錯誤碼和常見英文狀態詞： [API 狀態與錯誤文案](references/api-status.md)
 - 操作步驟、疑難排解、安全說明和維運文件： [受控中文技術寫作](references/controlled-technical-chinese.md)
 - 建立目標專案自己的約定： [專案覆寫範本](references/project-overrides-example.md)
