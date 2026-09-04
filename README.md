@@ -1,8 +1,8 @@
 # Chinese Tech Doc Style
 
-本專案只是一份面向繁體中文技術文件、產品文案與介面文案的寫作 Skill。
+本專案提供一套面向繁體中文技術文件、產品文案與介面文案的寫作 Skill。
 
-這份 Skill 的目標很明確：中文技術寫作應更規範、更準確、更易讀。不追求宣傳感，也不試圖把所有內容都寫成統一範本，而是著重處理幾類常見問題：
+這份 Skill 以準確、清楚、事實保真、可執行和易於瀏覽為優先。不追求宣傳感，也不把所有內容套入統一範本，而是著重處理幾類常見問題：
 
 - 中文技術文案容易空泛、重複、宣傳化
 - 中文與英文、數字混合排版時可讀性差
@@ -18,22 +18,19 @@
 - 文件首頁、著陸頁、第一屏文案
 - API 文件、參數說明、錯誤碼說明、更新記錄
 - 產品功能介紹、解決方案頁、功能說明頁
+- 操作手冊、疑難排解、維運 Runbook、安全說明、FAQ
 - 介面文案、按鈕文案、導覽標籤、提示資訊
 
-不適合以下內容：
+程式碼字面值 (Literal) 、JSON 鍵名、URL、API 路徑、資料庫欄位名稱、命令、設定項和其他機器可讀識別符號不屬於自然語言改寫範圍。
 
-- 程式碼字面量
-- JSON 鍵名
-- URL
-- API 路徑
-- 資料庫欄位名稱
-- 其他機器可讀識別符號
+## 事實保真
+
+文案最佳化不能改變事實。不得自行增加原文沒有的日期、數字、單位、處理期限、SLA、產品功能、前置條件、因果關係或確定性結論，也不能刪除適用範圍、例外、風險和失敗處理。資料不足時，應保留原意或明確標記待確認。
 
 ## 核心規則概覽
 
 這份 Skill 主要涵蓋以下規則：
 
-- 改寫時保留事實、限制、條件和確定程度
 - 中文引號統一使用直角單引號「」或直角雙引號『』
 - 預設避免不必要的直接稱呼；專案語氣規範可以覆寫此規則
 - 在可見正文中處理中文與英文、數字之間的留白
@@ -41,16 +38,19 @@
 - 避免常見網路黑話，如 `賦能`、`抓手`、`閉環`、`打通`
 - 對操作、疑難排解和維運文件套用受控中文技術寫作方法
 
-完整規範請閱讀：
+受控中文技術寫作著重術語一致、條件先於動作、步驟只有一個主要動作，以及執行者、對象和結果明確。這套方法受 ASD-STE100 啟發，但不是 ASD-STE100 的中文版本，也不表示輸出符合 ASD-STE100。
 
-- [SKILL.md](./skills/tech-doc-style-chinese-tw/SKILL.md)
-- [公開說明稿](./NoCode-Skill.md)
+完整規範請閱讀 [SKILL.md](./skills/tech-doc-style-chinese-tw/SKILL.md)。詳細規則會依任務讀取：
+
+- [術語與排版](./skills/tech-doc-style-chinese-tw/references/terminology-and-typography.md)
+- [API 狀態與錯誤文案](./skills/tech-doc-style-chinese-tw/references/api-status.md)
+- [受控中文技術寫作](./skills/tech-doc-style-chinese-tw/references/controlled-technical-chinese.md)
+- [專案覆寫範本](./skills/tech-doc-style-chinese-tw/references/project-overrides-example.md)
 
 ## 儲存庫結構
 
 ```text
 tech-doc-style-chinese/
-├── NoCode-Skill.md
 ├── README.md
 ├── skills/
 │   └── tech-doc-style-chinese-tw/
@@ -72,7 +72,6 @@ tech-doc-style-chinese/
 各檔案的作用：
 
 - `skills/tech-doc-style-chinese-tw/SKILL.md`：正式技能入口，供 Codex、Claude Code 等 Agent 使用
-- `NoCode-Skill.md`：對外說明稿，適合公開閱讀和分享
 - `README.md`：GitHub 儲存庫首頁說明
 - `skills/tech-doc-style-chinese-tw/agents/openai.yaml`：技能顯示中繼資料
 - `skills/tech-doc-style-chinese-tw/references/`：依任務讀取的詳細規則和專案覆寫範本
@@ -132,7 +131,7 @@ python3 skills/tech-doc-style-chinese-tw/scripts/lint_copy_rules.py
 
 ```bash
 python3 skills/tech-doc-style-chinese-tw/scripts/lint_copy_rules.py \
-  NoCode-Skill.md skills/tech-doc-style-chinese-tw/
+  README.md skills/tech-doc-style-chinese-tw/
 ```
 
 將警告和風格提示也作為失敗處理：
@@ -155,19 +154,6 @@ python3 -m unittest discover -s tests -v
 ```
 
 GitHub Actions 設定檔為 `.github/workflows/skill-lint.yml`，會在 `pull_request` 和 `main` 分支 `push` 時自動執行。
-
-## 釋出建議
-
-如果只是公開分享規範內容：
-
-- 保留 `NoCode-Skill.md`
-- 用 `README.md` 做儲存庫首頁說明
-
-如果希望他人能直接安裝使用：
-
-- 保留 `skills/tech-doc-style-chinese-tw/SKILL.md`
-- 保留 `skills/tech-doc-style-chinese-tw/agents/openai.yaml`
-- 在儲存庫裡明確說明目錄結構和安裝方式
 
 <!-- 作者：Fenng（GitHub：@Fenng） -->
 
