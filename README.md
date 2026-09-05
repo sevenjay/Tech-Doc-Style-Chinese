@@ -45,7 +45,6 @@
 - [術語與排版](./skills/tech-doc-style-chinese-tw/references/terminology-and-typography.md)
 - [API 狀態與錯誤文案](./skills/tech-doc-style-chinese-tw/references/api-status.md)
 - [受控中文技術寫作](./skills/tech-doc-style-chinese-tw/references/controlled-technical-chinese.md)
-- [專案覆寫範本](./skills/tech-doc-style-chinese-tw/references/project-overrides-example.md)
 
 ## 儲存庫結構
 
@@ -60,7 +59,6 @@ tech-doc-style-chinese/
 │       ├── references/
 │       │   ├── api-status.md
 │       │   ├── controlled-technical-chinese.md
-│       │   ├── project-overrides-example.md
 │       │   └── terminology-and-typography.md
 │       └── scripts/
 │           └── lint_copy_rules.py
@@ -74,7 +72,7 @@ tech-doc-style-chinese/
 - `skills/tech-doc-style-chinese-tw/SKILL.md`：正式技能入口，供 Codex、Claude Code 等 Agent 使用
 - `README.md`：GitHub 儲存庫首頁說明
 - `skills/tech-doc-style-chinese-tw/agents/openai.yaml`：技能顯示中繼資料
-- `skills/tech-doc-style-chinese-tw/references/`：依任務讀取的詳細規則和專案覆寫範本
+- `skills/tech-doc-style-chinese-tw/references/`：依任務讀取的詳細規則
 - `skills/tech-doc-style-chinese-tw/scripts/lint_copy_rules.py`：輕量檢查器
 - `tests/test_lint_copy_rules.py`：檢查器迴歸測試
 
@@ -98,18 +96,14 @@ Use $tech-doc-style-chinese-tw to rewrite this Taiwan Chinese technical copy.
 
 這份 Skill 只收錄通用規則，不把特定專案的版本顯示方式、品牌語氣、術語表或資訊架構寫死在核心規範中。
 
-如果專案有自己的約定，請在目標專案中建立獨立的覆寫規則檔。可以從以下範本開始：
+如果專案有自己的約定，請在目標專案中建立獨立的覆寫規則（例如在 `AGENTS.md` 或專案設定中）。
 
-- `skills/tech-doc-style-chinese-tw/references/project-overrides-example.md`
-
-這類覆寫規則檔適合放：
+這類覆寫規則適合放：
 
 - 版本顯示方式
 - 品牌或術語偏好
 - 文件結構偏好
 - 目前專案特有範例
-
-範本本身不包含預設生效的業務術語。不要把範例檔案當成目標專案約定。
 
 ## 輕量檢查與 CI
 

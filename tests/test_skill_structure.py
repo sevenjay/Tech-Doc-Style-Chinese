@@ -43,13 +43,6 @@ class SkillStructureTest(unittest.TestCase):
                 self.assertIn(f"### {heading}", reference)
         self.assertEqual(len(re.findall(r"^#### 範例 \d+$", reference, re.MULTILINE)), 12)
 
-    def test_project_override_is_explicitly_a_template(self):
-        reference = (
-            SKILL_DIR / "references" / "project-overrides-example.md"
-        ).read_text(encoding="utf-8")
-        self.assertIn("本檔案只是範本", reference)
-        self.assertFalse((SKILL_DIR / "references" / "Project-Overrides.md").exists())
-
 
 if __name__ == "__main__":
     unittest.main()
