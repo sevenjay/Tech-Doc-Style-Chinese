@@ -108,7 +108,7 @@ description: 在撰寫、改寫、校對或審閱繁體中文技術文件、產�
 - 狀態和錯誤文案根據實際語義翻譯，不機械對應單一英文詞。
 - 寫明前置條件、成功結果、失敗結果和復原方式。
 
-詳細規則見 [API 狀態與錯誤文案](references/api-status.md)。
+詳細規則見 references/api-status.md 。
 
 ### 介面文案
 
@@ -150,7 +150,7 @@ description: 在撰寫、改寫、校對或審閱繁體中文技術文件、產�
 
 ## 參考資料路由
 
-- 術語、黑話、錯詞、大小寫、標點和中英文留白： [術語與排版](references/terminology-and-typography.md)
-- API 狀態、錯誤碼和常見英文狀態詞： [API 狀態與錯誤文案](references/api-status.md)
+- 術語、大小寫、標點和中英文留白： [術語與排版](references/terminology-and-typography.md)
+- API 狀態、錯誤碼和常見英文狀態詞： [API 狀態](references/api-status.md)
 - 操作步驟、疑難排解、安全說明和維運文件： [受控中文技術寫作](references/controlled-technical-chinese.md)
 - 建立目標專案自己的約定： [專案覆寫範本](references/project-overrides-example.md)
