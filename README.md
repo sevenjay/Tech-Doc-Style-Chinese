@@ -96,7 +96,7 @@ Use $tech-doc-style-chinese-tw to rewrite this Taiwan Chinese technical copy.
 
 這份 Skill 只收錄通用規則，不把特定專案的版本顯示方式、品牌語氣、術語表或資訊架構寫死在核心規範中。
 
-如果專案有自己的約定，請在目標專案中建立獨立的覆寫規則（例如在 `AGENTS.md` 或專案設定中）。
+如果專案有自己的約定，請在目標專案中建立獨立的覆寫規則（例如在 `AGENTS.md`、`CONTEXT.md` 或專案設定中）。
 
 這類覆寫規則適合放：
 
