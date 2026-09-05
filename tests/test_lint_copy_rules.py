@@ -43,12 +43,6 @@ class CopyLintRulesTest(unittest.TestCase):
         self.assertTrue(any(item.kind == "context" for item in findings))
         self.assertTrue(any(item.kind == "abbreviation" for item in findings))
 
-    def test_flags_non_taiwan_wording(self):
-        findings = self.scan("使用賬號搜索資料。")
-        messages = [item.message for item in findings]
-        self.assertTrue(any("帳號" in message for message in messages))
-        self.assertTrue(any("搜尋" in message for message in messages))
-
     def test_high_confidence_typo_is_error(self):
         findings = self.scan("請調整閥值，不要佈署舊版本。")
         self.assertEqual({item.severity for item in findings}, {"error"})

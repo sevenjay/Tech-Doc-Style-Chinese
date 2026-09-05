@@ -1,6 +1,6 @@
 # Chinese Tech Doc Style
 
-本專案提供一套面向繁體中文技術文件、產品文案與介面文案的寫作 Skill。
+本專案提供一套針對繁體中文技術文件、產品文案與介面文案的寫作 Skill。
 
 這份 Skill 以準確、清楚、事實保真、可執行和易於瀏覽為優先。不追求宣傳感，也不把所有內容套入統一範本，而是著重處理幾類常見問題：
 
@@ -15,13 +15,13 @@
 
 本 Skill 適合以下內容：
 
-- 文件首頁、著陸頁、第一屏文案
+- 文件首頁、活動到達頁 (Landing Page)、首頁主視覺 (Above the Fold) 文案
 - API 文件、參數說明、錯誤碼說明、更新記錄
 - 產品功能介紹、解決方案頁、功能說明頁
 - 操作手冊、疑難排解、維運 Runbook、安全說明、FAQ
 - 介面文案、按鈕文案、導覽標籤、提示資訊
 
-程式碼字面值 (Literal) 、JSON 鍵名、URL、API 路徑、資料庫欄位名稱、命令、設定項和其他機器可讀識別符號不屬於自然語言改寫範圍。
+程式碼常值/字面值 (Literal)、JSON 鍵名、URL、API 路徑、資料庫欄位名稱、命令、設定項和其他機器可讀識別符號不屬於自然語言改寫範圍。
 
 ## 事實保真
 
@@ -91,7 +91,7 @@ Use $tech-doc-style-chinese-tw to rewrite this Taiwan Chinese technical copy.
 - 重寫中文技術文案
 - 整理 FAQ
 - 最佳化 API 文件措辭
-- 最佳化著陸頁中文文案
+- 最佳化活動到達頁 (Landing Page) 中文文案
 
 
 ## 如何設定專案覆寫規則
@@ -115,13 +115,13 @@ Use $tech-doc-style-chinese-tw to rewrite this Taiwan Chinese technical copy.
 
 儲存庫內建一個不需額外相依套件的輕量檢查指令碼，用於檢查常見規則。結果分為：
 
-- `error`：高度確定的錯誤，預設以非零結束碼結束
+- `error`：高度確定的錯誤，預設以非零結束狀態碼結束
 - `warning`：需視語境判斷的可疑表達，需要人工確認
 - `style`：專案風格和術語偏好
 
 檢查器會保護程式碼區塊、行內程式碼、URL、Markdown 連結目標，以及單段或多段 API 路徑。`截止日期`、`登陸月球`、`配製溶液`、`H5` 等需視語境判斷的詞，不再視為確定錯誤。
 
-本地執行：
+本機執行：
 
 ```bash
 python3 skills/tech-doc-style-chinese-tw/scripts/lint_copy_rules.py
@@ -155,7 +155,6 @@ python3 -m unittest discover -s tests -v
 
 GitHub Actions 設定檔為 `.github/workflows/skill-lint.yml`，會在 `pull_request` 和 `main` 分支 `push` 時自動執行。
 
-<!-- 作者：Fenng（GitHub：@Fenng） -->
 
 ## License
 
